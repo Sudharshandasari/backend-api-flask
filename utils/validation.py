@@ -112,3 +112,47 @@ def validate_two_sum_sorted_input(request):
         return None, None, "Invalid input format"
     
     
+
+def validate_two_sum_subarray_input(request):
+    try:
+        if request.method == "GET":
+            nums = request.args.get("nums")
+            k = request.args.get("k")
+            if not nums or not k:
+                return None, None, "missing params"
+            
+            nums = list(map(int,nums.split(",")))
+            k = int(k)
+
+
+        else: # POST
+            data = request.get_json()
+            if not data:
+                return None, None, "Invalid JSON"
+            nums = data.get("nums")
+            k = data.get("k")
+            if nums is None or k is None or not isinstance(nums,list) or not isinstance(k, int):
+                return None, None, "missing json body params"
+            
+            return nums, k, None
+    except:
+        return None, None, "Invalid input format"
+
+
+def validate_longest_unique_substring_input(request):
+    try:
+        if request.method == "GET":
+            s = request.args.get("s")
+            if s is None:
+                return None, "Missing params"
+        else: # POST
+            data = request.get_json()
+            if not data:
+                return None, "Invalid JSON"
+            s = data.get("s")
+            if s is None or not isinstance(s,str):
+                return None, "missing json body params"
+            return s, None
+            
+    except:
+        return None, "invalid input format", 404
