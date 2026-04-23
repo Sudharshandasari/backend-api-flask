@@ -156,3 +156,21 @@ def validate_longest_unique_substring_input(request):
             
     except:
         return None, "invalid input format", 404
+    
+
+def validate_min_window_substring_input(request):
+    try:
+        data = request.get_json()
+        if not data:
+            return None, None, "Invalid Json"
+        
+        s = data.get("s")
+        t = data.get("t")
+
+        if s is None or t is None or not isinstance(s,str) or not isinstance(t, str):
+            return None, None, "missing json body params"
+        
+        return s, t, None
+    
+    except:
+        return None, None, "Invalid input format"

@@ -88,6 +88,52 @@ Response
   "data": 3,
   "error": null
 }
+
+
+Max Sum Subarray (Fixed Window) → O(n)
+Longest Unique Substring (Variable Window) → O(n)
+Minimum Window Substring → O(n)
+Sliding Window Maximum (Deque) → O(n)
+
+#### 1. Minimum Window Substring
+
+POST /sliding-window/min-window-substring
+
+Input:
+
+```json
+{
+  "s": "ADOBECODEBANC",
+  "t": "ABC"
+}
+
+{
+  "success": true,
+  "data": "BANC",
+  "error": null
+}
+
+
+Sliding Window Maximum
+
+POST /sliding-window/sliding_window_max
+
+Input:
+
+{
+  "nums": [1,3,-1,-3,5,3,6,7],
+  "k": 3
+}
+
+Response:
+
+{
+  "success": true,
+  "data": [3,3,5,5,6,7],
+  "error": null
+}
+
+
 🔹 Two Pointers
 Valid Palindrome
 

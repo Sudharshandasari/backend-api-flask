@@ -232,6 +232,7 @@ app.register_blueprint(palindrome_bp)
 app.register_blueprint(validate_two_sum_sorted_input_bp)
 app.register_blueprint(sliding_window_bp)
 
+
 @app.route("/")
 def home():
     return "backend running"
