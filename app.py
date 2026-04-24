@@ -223,6 +223,7 @@ from routes.majority_route import majority_bp
 from routes.two_pointers import palindrome_bp
 from routes.two_pointers import validate_two_sum_sorted_input_bp
 from routes.sliding_window import sliding_window_bp
+from routes.prefix_sum import prefix_sum_array_bp
 
 app = Flask(__name__)
 app.register_blueprint(twosum_bp)
@@ -231,6 +232,7 @@ app.register_blueprint(majority_bp)
 app.register_blueprint(palindrome_bp)
 app.register_blueprint(validate_two_sum_sorted_input_bp)
 app.register_blueprint(sliding_window_bp)
+app.register_blueprint(prefix_sum_array_bp)
 
 
 @app.route("/")

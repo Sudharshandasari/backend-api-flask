@@ -174,3 +174,21 @@ def validate_min_window_substring_input(request):
     
     except:
         return None, None, "Invalid input format"
+    
+
+
+def validate_prefix_sum_array(request):
+    try:
+        data = request.get_json()
+        if not data or "nums" not in data:
+            return None, "Invalid Json"
+        
+        nums = data.get("nums")
+
+        if nums is None or not isinstance(nums, list):
+            return None, "missing json body params"
+        
+        return nums, None
+    
+    except:
+        return None, "Invalid Input"
