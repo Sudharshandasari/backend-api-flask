@@ -15,16 +15,20 @@ Flask
 Git & GitHub
 Postman
 
-🧠 Implemented Patterns
+# Implemented Patterns
+
 🔹 Hashmap
 Contains Duplicate → O(n)
 Majority Element (Boyer-Moore) → O(n), O(1)
+
 🔹 Two Pointers
 Valid Palindrome → O(n)
 Two Sum (Sorted Array) → O(n)
+
 🔹 Sliding Window
 Max Sum Subarray (Fixed Window) → O(n)
 Longest Unique Substring (Variable Window) → O(n)
+
 ⚡ Key Features
 REST APIs for DSA problems
 Input validation with proper error handling
@@ -51,8 +55,12 @@ backend_app/
 │
 ├── utils/
 ├── requirements.txt
-📡 API Endpoints
+
+
+# API Endpoints
+
 🔹 Sliding Window
+
 1. Max Sum Subarray
 
 POST /sliding-window/max-sum-subarray
@@ -71,6 +79,8 @@ Response
   "data": 9,
   "error": null
 }
+
+
 2. Longest Unique Substring
 
 POST /sliding-window/longest-unique-substring
@@ -95,7 +105,7 @@ Longest Unique Substring (Variable Window) → O(n)
 Minimum Window Substring → O(n)
 Sliding Window Maximum (Deque) → O(n)
 
-#### 1. Minimum Window Substring
+ 1. Minimum Window Substring
 
 POST /sliding-window/min-window-substring
 
@@ -135,29 +145,30 @@ Response:
 
 
 🔹 Two Pointers
-Valid Palindrome
 
+Valid Palindrome
 POST /two-pointers/palindrome
 
 Two Sum (Sorted)
-
 POST /two-pointers/two-sum-sorted
 
 🔹 Hashmap
-Contains Duplicate
 
+Contains Duplicate
 POST /hashmap/contains-duplicate
 
 Majority Element
+POST /hashmap/majority-element
 
-GET /hashmap/majority-element
+Prefix sum
+POST /prefix sum/prefix_sum
 
 🚀 How to Run
+
 pip install -r requirements.txt
 python app.py
 
 Server runs at:
-
 http://127.0.0.1:5000
 
 Design Principles:

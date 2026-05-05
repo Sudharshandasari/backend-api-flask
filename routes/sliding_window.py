@@ -1,3 +1,4 @@
+from db.database import  insert_result
 from flask import Blueprint, request
 from services.sliding_window.min_window_substring import min_window_substring
 from services.sliding_window.sliding_window_max import sliding_window_max
@@ -21,6 +22,14 @@ def validate_two_sum_subarray():
             }, 400
         
         result = two_sum_subarray(nums, k)
+        insert_result(nums, k, result)
+        from db.database import get_connection
+
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM results")
+        print(cursor.fetchall())
+        conn.close()
         return {
             "success" : True,
             "data": result,
