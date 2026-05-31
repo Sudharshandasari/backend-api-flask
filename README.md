@@ -185,3 +185,85 @@ Proper HTTP status codes:
 Patterns Covered: 3+
 APIs Built: 6+
 Status: Actively Building 🚀
+
+# Expense Tracker API
+
+A simple backend application built using Python, Flask, and SQLite to manage expenses.
+
+## Features
+
+* Create Expense
+* Get All Expenses
+* Get Expense By ID
+* Update Expense
+* Delete Expense
+
+## Tech Stack
+
+* Python
+* Flask
+* SQLite
+
+## Project Structure
+
+backend_app/
+├── app.py
+├── db/
+├── routes/
+├── services/
+├── validations/
+
+## Installation
+
+1. Clone repository
+2. Create virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+3. Install dependencies
+
+```bash
+pip install flask
+```
+
+4. Run application
+
+```bash
+python app.py
+```
+
+## Database
+
+Database file:
+
+```text
+expense.db
+```
+
+Table:
+
+```text
+expenses
+```
+
+Columns:
+
+* id
+* title
+* amount
+* category
+
+## API Endpoints
+
+POST /expenses
+
+GET /expenses
+
+GET /expenses/<id>
+
+PUT /expenses/<id>
+
+DELETE /expenses/<id>
