@@ -9,7 +9,7 @@ def validate_twosum_input(request):
             nums = list(map(int,nums.split(",")))
             target = int(target)
 
-        else: # POST
+        else: # POSTutils
             data = request.get_json()
             if not data:
                 return None, None, "Invalid JSON"

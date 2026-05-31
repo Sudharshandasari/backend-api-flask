@@ -217,32 +217,54 @@
 # if __name__ == "__main__":
 #     app.run(debug=True)
 
-from db.database import init_db
+# from db.database import init_db
+# from flask import Flask
+# from routes.twosum_route import twosum_bp
+# from routes.containsduplicate_route import containduplicate_bp
+# from routes.majority_route import majority_bp
+# from routes.two_pointers import palindrome_bp
+# from routes.two_pointers import validate_two_sum_sorted_input_bp
+# from routes.sliding_window import sliding_window_bp
+# from routes.prefix_sum import prefix_sum_array_bp
+
+# app = Flask(__name__)
+# app.register_blueprint(twosum_bp)
+# app.register_blueprint(containduplicate_bp)
+# app.register_blueprint(majority_bp)
+# app.register_blueprint(palindrome_bp)
+# app.register_blueprint(validate_two_sum_sorted_input_bp)
+# app.register_blueprint(sliding_window_bp)
+# app.register_blueprint(prefix_sum_array_bp)
+
+
+# @app.route("/")
+# def home():
+#     return "backend running"
+
+# for rule in app.url_map.iter_rules():
+#     print(f"{rule}  →  {rule.methods}") 
+# if __name__ == "__main__":
+#     init_db()
+#     app.run(debug=True)
 from flask import Flask
-from routes.twosum_route import twosum_bp
-from routes.containsduplicate_route import containduplicate_bp
-from routes.majority_route import majority_bp
-from routes.two_pointers import palindrome_bp
-from routes.two_pointers import validate_two_sum_sorted_input_bp
-from routes.sliding_window import sliding_window_bp
-from routes.prefix_sum import prefix_sum_array_bp
+
+from db.database import init_db
+
+from routes.expense_routes import expense_bp
 
 app = Flask(__name__)
-app.register_blueprint(twosum_bp)
-app.register_blueprint(containduplicate_bp)
-app.register_blueprint(majority_bp)
-app.register_blueprint(palindrome_bp)
-app.register_blueprint(validate_two_sum_sorted_input_bp)
-app.register_blueprint(sliding_window_bp)
-app.register_blueprint(prefix_sum_array_bp)
+
+init_db()
+
+app.register_blueprint(expense_bp)
 
 
 @app.route("/")
 def home():
-    return "backend running"
+    return {
+        "message": "Expense Tracker API Running"
+    }
 
-for rule in app.url_map.iter_rules():
-    print(f"{rule}  →  {rule.methods}") 
+
 if __name__ == "__main__":
-    init_db()
-    app.run(debug=True)
+    app.run(debug=False)
