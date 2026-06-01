@@ -1,262 +1,123 @@
-Backend Algorithm API (Flask)
-📌 Overview
+# Backend Engineering Practice Repository
 
-A structured backend system that exposes Data Structures & Algorithms (DSA) problems as REST APIs.
+## 📌 Overview
 
-This project focuses on:
+This repository contains my backend engineering practice projects built using Python, Flask, SQLite, Git, and REST APIs.
 
-Converting DSA logic into real-world backend APIs
-Building clean and scalable backend architecture
-Strengthening problem-solving + backend integration skills
+The goal of this repository is to strengthen:
 
-⚙️ Tech Stack
-Python
-Flask
-Git & GitHub
-Postman
+- Backend Development
+- API Design
+- Database Integration
+- Problem Solving
+- Software Architecture
+- Git & GitHub Workflow
+- Debugging Skills
 
-# Implemented Patterns
+---
 
-🔹 Hashmap
-Contains Duplicate → O(n)
-Majority Element (Boyer-Moore) → O(n), O(1)
+## ⚙️ Tech Stack
 
-🔹 Two Pointers
-Valid Palindrome → O(n)
-Two Sum (Sorted Array) → O(n)
+- Python
+- Flask
+- SQLite
+- Git & GitHub
+- Postman
+- Linux / WSL
 
-🔹 Sliding Window
-Max Sum Subarray (Fixed Window) → O(n)
-Longest Unique Substring (Variable Window) → O(n)
+---
 
-⚡ Key Features
-REST APIs for DSA problems
-Input validation with proper error handling
-Consistent JSON response structure
-Clean separation of concerns:
-Routes → API layer
-Services → Core logic
-Utils → Validation
-Scalable pattern-based architecture
-
-🏗️ Project Structure
-backend_app/
-│
-├── app.py
-├── routes/
-│   ├── hashmap_routes.py
-│   ├── two_pointers_routes.py
-│   ├── sliding_window_routes.py
-│
-├── services/
-│   ├── hashmap/
-│   ├── two_pointers/
-│   ├── sliding_window/
-│
-├── utils/
-├── requirements.txt
-
-
-# API Endpoints
-
-🔹 Sliding Window
-
-1. Max Sum Subarray
-
-POST /sliding-window/max-sum-subarray
-
-Request
-
-{
-  "nums": [2,1,5,1,3,2],
-  "k": 3
-}
-
-Response
-
-{
-  "success": true,
-  "data": 9,
-  "error": null
-}
-
-
-2. Longest Unique Substring
-
-POST /sliding-window/longest-unique-substring
-
-Request
-
-{
-  "s": "abcabcbb"
-}
-
-Response
-
-{
-  "success": true,
-  "data": 3,
-  "error": null
-}
-
-
-Max Sum Subarray (Fixed Window) → O(n)
-Longest Unique Substring (Variable Window) → O(n)
-Minimum Window Substring → O(n)
-Sliding Window Maximum (Deque) → O(n)
-
- 1. Minimum Window Substring
-
-POST /sliding-window/min-window-substring
-
-Input:
-
-```json
-{
-  "s": "ADOBECODEBANC",
-  "t": "ABC"
-}
-
-{
-  "success": true,
-  "data": "BANC",
-  "error": null
-}
-
-
-Sliding Window Maximum
-
-POST /sliding-window/sliding_window_max
-
-Input:
-
-{
-  "nums": [1,3,-1,-3,5,3,6,7],
-  "k": 3
-}
-
-Response:
-
-{
-  "success": true,
-  "data": [3,3,5,5,6,7],
-  "error": null
-}
-
-
-🔹 Two Pointers
-
-Valid Palindrome
-POST /two-pointers/palindrome
-
-Two Sum (Sorted)
-POST /two-pointers/two-sum-sorted
-
-🔹 Hashmap
-
-Contains Duplicate
-POST /hashmap/contains-duplicate
-
-Majority Element
-POST /hashmap/majority-element
-
-Prefix sum
-POST /prefix sum/prefix_sum
-
-🚀 How to Run
-
-pip install -r requirements.txt
-python app.py
-
-Server runs at:
-http://127.0.0.1:5000
-
-Design Principles:
-
-No business logic inside routes
-Logic handled in services layer
-Validation handled in utils
-Consistent API response format
-Proper HTTP status codes:
-200 → Success
-400 → Invalid input
-500 → Server error
-📈 Progress
-Patterns Covered: 3+
-APIs Built: 6+
-Status: Actively Building 🚀
-
-# Expense Tracker API
-
-A simple backend application built using Python, Flask, and SQLite to manage expenses.
-
-## Features
-
-* Create Expense
-* Get All Expenses
-* Get Expense By ID
-* Update Expense
-* Delete Expense
-
-## Tech Stack
-
-* Python
-* Flask
-* SQLite
-
-## Project Structure
+# 🏗️ Repository Structure
 
 backend_app/
+
 ├── app.py
+
 ├── db/
+
 ├── routes/
+
 ├── services/
+
 ├── validations/
 
-## Installation
+├── utils/
 
-1. Clone repository
-2. Create virtual environment
+├── README.md
 
-```bash
-python -m venv venv
-source venv/bin/activate
-```
+└── backend_notes.md (future)
 
-3. Install dependencies
+---
 
-```bash
-pip install flask
-```
+# 🚀 Projects
 
-4. Run application
+## 1. DSA Backend API
 
-```bash
-python app.py
-```
+A structured backend system that exposes Data Structures & Algorithms problems as REST APIs.
 
-## Database
+### Implemented Patterns
 
-Database file:
+### HashMap
 
-```text
+- Contains Duplicate → O(n)
+- Majority Element (Boyer-Moore) → O(n), O(1)
+
+### Two Pointers
+
+- Valid Palindrome → O(n)
+- Two Sum (Sorted Array) → O(n)
+
+### Sliding Window
+
+- Max Sum Subarray → O(n)
+- Longest Unique Substring → O(n)
+- Minimum Window Substring → O(n)
+- Sliding Window Maximum → O(n)
+
+### Prefix Sum
+
+- Prefix Sum API
+
+### Key Features
+
+- REST APIs for DSA problems
+- Input validation
+- Error handling
+- Consistent JSON responses
+- Modular architecture
+
+---
+
+## 2. Expense Tracker API
+
+A CRUD-based backend application built using Flask and SQLite.
+
+### Features
+
+- Create Expense
+- Get All Expenses
+- Get Expense By ID
+- Update Expense
+- Delete Expense
+
+### Database
+
+Database File:
+
 expense.db
-```
 
 Table:
 
-```text
 expenses
-```
 
 Columns:
 
-* id
-* title
-* amount
-* category
+- id
+- title
+- amount
+- category
 
-## API Endpoints
+### API Endpoints
 
 POST /expenses
 
@@ -267,3 +128,96 @@ GET /expenses/<id>
 PUT /expenses/<id>
 
 DELETE /expenses/<id>
+
+### Concepts Practiced
+
+- SQLite Integration
+- CRUD Operations
+- Service Layer Architecture
+- Route Layer Design
+- Validation Layer
+- Database Debugging
+
+---
+
+# 🧠 Backend Concepts Practiced
+
+- HTTP Fundamentals
+- Routing
+- Request Handling
+- Serialization
+- Validation
+- Error Handling
+- CRUD Operations
+- SQLite
+- API Design
+- Debugging
+- Git Workflow
+
+---
+
+# 🛠️ How To Run
+
+Create Virtual Environment
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Run Application
+
+```bash
+python app.py
+```
+
+Server:
+
+```text
+http://127.0.0.1:5000
+```
+
+---
+
+# 🎯 Learning Goals
+
+Current Focus:
+
+- Backend Development with Python
+- Building Real Projects
+- Database Design
+- Problem Solving
+- Git & GitHub
+
+Upcoming Projects:
+
+- Task Manager API
+- Authentication System
+- Blog API
+- Inventory Management API
+- PostgreSQL Integration
+
+---
+
+# 📈 Progress
+
+Completed:
+
+- DSA API Project
+- Expense Tracker API
+
+In Progress:
+
+- Backend Project Expansion
+- GitHub Documentation
+- Backend Notes System
+
+Status:
+
+🚀 Actively Learning & Building
