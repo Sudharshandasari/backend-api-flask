@@ -51,7 +51,7 @@ backend_app/
 
 # 🚀 Projects
 
-## 1. DSA Backend API
+# 1. DSA Backend API
 
 A structured backend system that exposes Data Structures & Algorithms problems as REST APIs.
 
@@ -88,7 +88,7 @@ A structured backend system that exposes Data Structures & Algorithms problems a
 
 ---
 
-## 2. Expense Tracker API
+# 2. Expense Tracker API
 
 A CRUD-based backend application built using Flask and SQLite.
 
@@ -139,6 +139,67 @@ DELETE /expenses/<id>
 - Database Debugging
 
 ---
+
+
+# 3. Task Manager API
+
+### Features
+
+- Create Task
+- Get All Tasks
+- Get Task By ID
+- Update Task
+- Delete Task
+
+### Database
+
+Table: tasks
+
+Fields:
+
+- id
+- title
+- status
+- priority
+- created_at
+
+### API Endpoints
+
+#### Create Task
+
+POST /tasks
+
+#### Get All Tasks
+
+GET /tasks
+
+#### Get Task By ID
+
+GET /tasks/<id>
+
+#### Update Task
+
+PUT /tasks/<id>
+
+#### Delete Task
+
+DELETE /tasks/<id>
+
+### Architecture
+
+```text
+Client
+↓
+Route
+↓
+Validation
+↓
+Service
+↓
+Database
+↓
+Response
+```
 
 # 🧠 Backend Concepts Practiced
 
@@ -197,7 +258,6 @@ Current Focus:
 
 Upcoming Projects:
 
-- Task Manager API
 - Authentication System
 - Blog API
 - Inventory Management API
@@ -211,6 +271,7 @@ Completed:
 
 - DSA API Project
 - Expense Tracker API
+- Task Manager API
 
 In Progress:
 
