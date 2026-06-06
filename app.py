@@ -252,18 +252,26 @@ from db.database import init_db
 
 from routes.expense_routes import expense_bp
 
+from routes.task_route import task_bp
+
+from routes.user_route import user_bp
 app = Flask(__name__)
 
 init_db()
 
 app.register_blueprint(expense_bp)
-
+app.register_blueprint(task_bp)
+app.register_blueprint(user_bp)
 
 @app.route("/")
 def home():
     return {
-        "message": "Expense Tracker API Running"
+        "message": "Expense Tracker API Running",
+        "message": "Task Manager API Running",
+        "message": "User Management API Running"
     }
+    
+
 
 
 if __name__ == "__main__":

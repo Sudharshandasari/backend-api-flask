@@ -63,9 +63,27 @@ def init_db():
                    amount real not null,
                    category text not null
                    )
-                   """)
+                   """);
     
+    cursor.execute("""
+                   CREATE TABLE IF NOT EXISTS tasks(
+                   id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   title text not null,
+                   status text not null,
+                   priority text not null,
+                   created_at text not null)
+                   """);
+    
+    cursor.execute("""
+                   CREATE TABLE IF NOT EXISTS users(
+                   id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   name text not null,
+                   email text not null,
+                   password text not null,
+                   created_at text not null)
+                   """);
     conn.commit()
     conn.close()
+
 
     
