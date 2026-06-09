@@ -1,7 +1,33 @@
+import os
+SECRET_KEY = os.getenv("SECRET_KEY")
+print(SECRET_KEY)
+
 import jwt
+from datetime import datetime, timedelta
+
+
+
 def generate_token(user):
 
     payload = {
         "user_id": user["id"],
-        "email": user["email"]
+        "email": user["email"],
+        "exp": datetime.utcnow() + timedelta(hours=24)
     }
+
+    token = jwt.encode(
+        payload,
+        SECRET_KEY,
+        algorithm = "HS256"
+    )
+
+    return token
+
+def verify_token(token):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+        return payload
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None

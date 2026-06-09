@@ -1,4 +1,5 @@
 from db.database import get_connection
+from utils.jwt_handler import generate_token
 import bcrypt
 
 
@@ -52,8 +53,14 @@ def login_user(email,password):
     user = get_user_by_email(email)
     if not user:
         return None
-    if bcrypt.checkpw(password.encode(), user["password"].encode()):
-        return user
-    return None
-
+    
+    if not bcrypt.checkpw(password.encode(), user["password"].encode()):
+        return None
+    
+    token = generate_token(user)
+    
+    return{
+        "user": user,
+        "token": token
+    }
 

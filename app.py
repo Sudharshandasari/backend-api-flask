@@ -246,6 +246,10 @@
 # if __name__ == "__main__":
 #     init_db()
 #     app.run(debug=True)
+
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask
 
 from db.database import init_db
@@ -266,9 +270,9 @@ app.register_blueprint(user_bp)
 @app.route("/")
 def home():
     return {
-        "message": "Expense Tracker API Running",
-        "message": "Task Manager API Running",
-        "message": "User Management API Running"
+        "expense_api": "Running",
+        "task_api": "Running",
+        "user_api": "Running"
     }
     
 

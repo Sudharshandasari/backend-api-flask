@@ -20,28 +20,33 @@ def add_user():
     create_user(data)
     return success_response("User created successfully")
 
+
 @user_bp.route("/login_user", methods=["POST"])
 def login():
+
     data = request.get_json()
-    user = login_user(
+
+    result = login_user(
         data.get("email"),
-        data.get("password"))
-    if not user:
+        data.get("password")
+    )
+
+    if not result:
         return error_response(
-             "Invalid email or password"
+            "Invalid email or password"
         ), 401
-    
+
     return success_response(
         {
-            "id": user["id"],
-            "name": user["name"],
-            "email": user["email"]
+            "user": {
+                "id": result["user"]["id"],
+                "name": result["user"]["name"],
+                "email": result["user"]["email"]
+            },
+            "token": result["token"]
         },
         "login successful"
     )
-
-
-
 
 
 
