@@ -259,6 +259,10 @@ from routes.expense_routes import expense_bp
 from routes.task_route import task_bp
 
 from routes.user_route import user_bp
+
+    
+
+from middleware.auth_middleware import login_required
 app = Flask(__name__)
 
 init_db()
@@ -267,12 +271,15 @@ app.register_blueprint(expense_bp)
 app.register_blueprint(task_bp)
 app.register_blueprint(user_bp)
 
+
+
 @app.route("/")
 def home():
     return {
         "expense_api": "Running",
         "task_api": "Running",
-        "user_api": "Running"
+        "user_api": "Running",
+        "auth_middleware": "Running"
     }
     
 

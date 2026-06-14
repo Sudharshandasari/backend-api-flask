@@ -1,3 +1,6 @@
+from middleware.auth_middleware import login_required
+from flask import g
+
 from flask import Blueprint, request
 from services.user_service import (
     create_user,
@@ -49,5 +52,16 @@ def login():
     )
 
 
-
+@user_bp.route("/profile", methods=["GET"])
+@login_required
+def profile():
+    user = g.user
+    return success_response(
+        {
+            "id": user["id"],
+            "name": user["name"],
+            "email": user["email"]
+        },
+        "successfully fetched user profile"
+    )
 

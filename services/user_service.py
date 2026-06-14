@@ -40,6 +40,15 @@ def email_exists(email):
     finally:
         conn.close()
 
+def get_user_by_id(user_id):
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+        return cursor.fetchone()
+    finally:
+        conn.close()
+
 def get_user_by_email(email):
     conn = get_connection()
     try:
