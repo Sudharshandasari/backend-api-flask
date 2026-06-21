@@ -260,6 +260,7 @@ from routes.task_route import task_bp
 
 from routes.user_route import user_bp
 
+
     
 
 from middleware.auth_middleware import login_required
