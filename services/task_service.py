@@ -194,17 +194,24 @@ def get_tasks(search=None,
     cursor = conn.cursor()
 
     query = "SELECT * FROM tasks WHERE 1=1"
+    count_query = "SELECT COUNT(*) FROM tasks WHERE 1=1"
+
     params = []
+    count_params = []
 
     # Search
     if search:
         query += " AND title LIKE ?"
+        count_query += " AND title LIKE ?"
         params.append(f"%{search}%")
+        count_params.append(f"%{search}%")
 
     # Filter
     if status_filter:
         query += " AND status = ?"
+        count_query += " AND status = ?"
         params.append(status_filter)
+        count_params.append(status_filter)
 
     # Sort
     if sort == "asc":
@@ -219,12 +226,32 @@ def get_tasks(search=None,
     query += " LIMIT ? OFFSET ?"
     params.extend([limit, offset])
 
+    #Fetch rows
     cursor.execute(query, tuple(params))
-
     rows = cursor.fetchall()
+
+    #count total matchining rows
+    cursor.execute(count_query, tuple(count_params))
+    total = cursor.fetchone()[0]
+
+    pages = (total + limit - 1) // limit
+
+    previous_page = page - 1 if page > 1 else None
+    next_page = page + 1 if page < pages else None
+
+    has_previous = previous_page is not None
+    has_next = next_page is not None
 
     conn.close()
 
     return {
-        "tasks": [dict(row) for row in rows]
+        "tasks": [dict(row) for row in rows],
+        "total_tasks": total,
+        "total_pages" : pages,
+        "page" : page,
+        "limit" : limit,
+        "previous_page" : previous_page,
+        "has_previous" : has_previous,
+        "next_page" : next_page,
+        "has_next" : has_next
     }
