@@ -125,19 +125,25 @@ DELETE /expenses/<id>
 
 * SQLite Integration
 * CRUD Operations
+* Dynamic SQL Query Building
+* Pagination with LIMIT + OFFSET
+* Search + Filtering + Sorting
 * Service Layer Architecture
 * Route Layer Design
 * Validation Layer
 * Database Debugging
+* Consistent JSON  Responses with total + pages
 
 ---
 
 ## 3. Task Manager API
 
 ### Features
-
 * Create Task
-* Get All Tasks
+* Get All Tasks with Pagination
+* Search tasks by title
+* Filter tasks by status/priority  
+* Sort tasks by created_at ASC/DESC
 * Get Task By ID
 * Update Task
 * Delete Task
@@ -155,14 +161,12 @@ Fields:
 * created_at
 
 ### API Endpoints
-
 ```text
 POST   /tasks
-GET    /tasks
+GET    /tasks?page=1&limit=10&search=buy&status=pending&sort=desc
 GET    /tasks/<id>
 PUT    /tasks/<id>
 DELETE /tasks/<id>
-```
 
 ### Architecture
 
@@ -253,7 +257,9 @@ Authorization: Bearer <JWT_TOKEN>
 * Validation
 * Error Handling
 * CRUD Operations
-* SQLite
+* SQLite + Dynamic SQL Queries
+* Pagination: LIMIT + OFFSET
+* Search, Filtering, Sorting
 * Authentication
 * Authorization
 * JWT
@@ -319,6 +325,7 @@ http://127.0.0.1:5000
 * Backend Development with Python
 * API Architecture
 * Database Design
+* Dynamic Queries + pagination + search + filters
 * Testing & Debugging
 * Git & GitHub
 * System Thinking
@@ -329,8 +336,6 @@ http://127.0.0.1:5000
 
 * PostgreSQL
 * SQLAlchemy
-* Pagination
-* Search & Filters
 * File Uploads
 * Role-Based Access Control
 * Docker
