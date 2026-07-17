@@ -44,46 +44,58 @@
 #     conn = sqlite3.connect(DB_Name, check_same_thread=False)
 #     conn.row_factory = sqlite3.Row
 
-import sqlite3
-DB_NAME = "expense.db"
+import psycopg
+from psycopg.rows import dict_row
+DB_CONFIG = {
+    "dbname": "task_manager_db",
+    "user": "postgres",
+    "password": "sudh2003",
+    "host": "localhost",
+    "port": 5432
+}
 
 def get_connection():
-    conn = sqlite3.connect(DB_NAME, check_same_thread=False)
-    conn.row_factory = sqlite3.Row
-    return conn
+    try:
+        conn = psycopg.connect(**DB_CONFIG,
+                               row_factory=dict_row
+                               )
+        return conn
+    except Exception as e:
+        print(f"Database connection error: {e}")
+        raise
 
-def init_db():
-    conn = get_connection()
-    cursor = conn.cursor()
+# def init_db():
+#     conn = get_connection()
+#     cursor = conn.cursor()
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS expenses(
-                   id INTEGER PRIMARY KEY AUTOINCREMENT,
-                   title text not null,
-                   amount real not null,
-                   category text not null
-                   )
-                   """);
+#     cursor.execute("""
+#         CREATE TABLE IF NOT EXISTS expenses(
+#                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                    title text not null,
+#                    amount real not null,
+#                    category text not null
+#                    )
+#                    """);
     
-    cursor.execute("""
-                   CREATE TABLE IF NOT EXISTS tasks(
-                   id INTEGER PRIMARY KEY AUTOINCREMENT,
-                   title text not null,
-                   status text not null,
-                   priority text not null,
-                   created_at text not null)
-                   """);
+#     cursor.execute("""
+#                    CREATE TABLE IF NOT EXISTS tasks(
+#                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                    title text not null,
+#                    status text not null,
+#                    priority text not null,
+#                    created_at text not null)
+#                    """);
     
-    cursor.execute("""
-                   CREATE TABLE IF NOT EXISTS users(
-                   id INTEGER PRIMARY KEY AUTOINCREMENT,
-                   name text not null,
-                   email text not null,
-                   password text not null,
-                   created_at text not null)
-                   """);
-    conn.commit()
-    conn.close()
+#     cursor.execute("""
+#                    CREATE TABLE IF NOT EXISTS users(
+#                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                    name text not null,
+#                    email text not null,
+#                    password text not null,
+#                    created_at text not null)
+#                    """);
+#     conn.commit()
+#     conn.close()
 
 
     

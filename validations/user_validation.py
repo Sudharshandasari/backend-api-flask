@@ -8,8 +8,8 @@ from services.user_service import  email_exists
 def validate_user(data):
     errors = []
 
-    if not data.get("name"):
-        errors.append("Name is required")
+    if not data.get("username"):
+        errors.append("Username is required")
 
     email = data.get("email")
     if not email:

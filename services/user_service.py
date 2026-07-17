@@ -16,50 +16,56 @@ def create_user(data):
     cursor.execute(
 
         """
-        INSERT INTO users(name, email, password, created_at)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO users(username, email, password, created_at)
+        VALUES (%s, %s, %s, %s)
         """,
         (
-            data["name"],
+            data["username"],
             data["email"],
             hashed_password,
             data["created_at"]
         )
     )
     conn.commit()
+    cursor.close()
     conn.close()
 
 def email_exists(email):
     conn = get_connection()
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
         user = cursor.fetchone()
         return user is not None
          
     finally:
+        cursor.close()
         conn.close()
 
 def get_user_by_id(user_id):
     conn = get_connection()
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+        cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
         return cursor.fetchone()
     finally:
+        cursor.close()
         conn.close()
 
 def get_user_by_email(email):
     conn = get_connection()
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
         return cursor.fetchone()
     finally:
+        cursor.close()
         conn.close()
 
 def login_user(email,password):
     user = get_user_by_email(email)
+    print(user)
+    print(type(user))
     if not user:
         return None
     

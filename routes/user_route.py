@@ -43,7 +43,7 @@ def login():
         {
             "user": {
                 "id": result["user"]["id"],
-                "name": result["user"]["name"],
+                "username": result["user"]["username"],
                 "email": result["user"]["email"]
             },
             "token": result["token"]
@@ -59,7 +59,7 @@ def profile():
     return success_response(
         {
             "id": user["id"],
-            "name": user["name"],
+            "username": user["username"],
             "email": user["email"]
         },
         "successfully fetched user profile"

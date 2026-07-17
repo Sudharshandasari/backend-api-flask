@@ -252,7 +252,7 @@ load_dotenv()
 
 from flask import Flask
 
-from db.database import init_db
+# from db.database import init_db
 
 from routes.expense_routes import expense_bp
 
@@ -266,7 +266,7 @@ from routes.user_route import user_bp
 from middleware.auth_middleware import login_required
 app = Flask(__name__)
 
-init_db()
+# init_db()
 
 app.register_blueprint(expense_bp)
 app.register_blueprint(task_bp)
