@@ -1,6 +1,6 @@
 import os
 SECRET_KEY = os.getenv("SECRET_KEY")
-print(SECRET_KEY)
+
 
 import jwt
 from datetime import datetime, timedelta

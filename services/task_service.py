@@ -1,25 +1,33 @@
 from db.database import get_connection
 
+
 def create_task(data):
-    conn = get_connection()
-    cursor = conn.cursor()
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
 
-    cursor.execute(
-        """
-        INSERT INTO tasks(title, status, priority, created_at)
-        VALUES (%s, %s, %s, %s)
-        """,
-        (
-            data["title"],
-            data["status"],
-            data["priority"],
-            data["created_at"]
+        cursor.execute(
+            """
+            INSERT INTO tasks(title, status, priority, created_at)
+            VALUES (%s, %s, %s, %s)
+            """,
+            (
+                data["title"],
+                data["status"],
+                data["priority"],
+                data["created_at"]
+            )
         )
-    )
+        conn.commit()
 
-    conn.commit()
-    cursor.close()
-    conn.close()
+    except Exception:
+        conn.rollback()
+        raise
+
+    finally:
+
+        cursor.close()
+        conn.close()
 
 
 def get_all_tasks():
@@ -32,7 +40,11 @@ def get_all_tasks():
         rows = cursor.fetchall()
 
         return [dict(row) for row in rows]
-    
+
+    except Exception:
+        conn.rollback()
+        raise
+
     finally:
 
         cursor.close()
@@ -51,6 +63,12 @@ def get_task_by_id(task_id):
 
         row = cursor.fetchone()
         return dict(row) if row else None
+
+
+    except Exception:
+        conn.rollback()
+        raise
+
     finally:
         cursor.close()
         conn.close()
@@ -77,6 +95,10 @@ def update_task(task_id, data):
 
         conn.commit()
 
+    except Exception:
+        conn.rollback()
+        raise
+
     finally:
         cursor.close()
         conn.close()
@@ -93,6 +115,11 @@ def delete_task(task_id):
         )
 
         conn.commit()
+
+    except Exception:
+        conn.rollback()
+        raise
+
     finally:
         cursor.close()
         conn.close()
@@ -128,7 +155,7 @@ def get_paginated_tasks(page,limit):
 
 
         has_previous = previous_page is not None
-        has_next = next_page is not None  
+        has_next = next_page is not None
         return {
             "Tasks": [dict(row) for row in rows],
             "total_tasks": total,
@@ -204,7 +231,7 @@ def sorting_tasks(sort):
             )
 
         elif sort == "desc":
-            # ORDER BY created_at DESC 
+            # ORDER BY created_at DESC
             cursor.execute(
                 "SELECT * FROM tasks ORDER BY created_at DESC"
             )
@@ -219,6 +246,8 @@ def sorting_tasks(sort):
         conn.close()
 
 
+class PaginationError(Exception):
+    pass
 
 def get_tasks(search=None,
               status_filter=None,
@@ -250,6 +279,18 @@ def get_tasks(search=None,
             params.append(status_filter)
             count_params.append(status_filter)
 
+
+        #count total matchining rows
+        cursor.execute(count_query, tuple(count_params))
+        total = cursor.fetchone()["count"]
+
+        pages = (total + limit - 1) // limit
+
+
+        # Semantic Validation
+        if total > 0 and page > pages:
+            raise PaginationError("Page number exceeds total pages")
+
         # Sort
         if sort == "asc":
             query += " ORDER BY created_at ASC"
@@ -267,11 +308,8 @@ def get_tasks(search=None,
         cursor.execute(query, tuple(params))
         rows = cursor.fetchall()
 
-        #count total matchining rows
-        cursor.execute(count_query, tuple(count_params))
-        total = cursor.fetchone()[0]
 
-        pages = (total + limit - 1) // limit
+
 
         previous_page = page - 1 if page > 1 else None
         next_page = page + 1 if page < pages else None

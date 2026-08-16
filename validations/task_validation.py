@@ -22,10 +22,11 @@ def validate_pagination(page,limit):
     if page < 1:
         errors.append("page must be greater than or equal to 1")
 
+
     if limit < 1:
         errors.append("limit must be greater than or equal to  1")
 
-    elif limit >= 100:
+    elif limit > 100:
         errors.append("limit must be lesser than or equal to 100")
 
     return errors
@@ -38,8 +39,15 @@ def validate_search(search):
 
 def validate_filter(status_filter):
     errors = []
+
     if not status_filter or not status_filter.strip():
         errors.append("filter term is required")
+
+    elif status_filter not in {"pending", "in_progress", "completed"}:
+        errors.append(
+            "filter must be one of: pending, in_progress, completed"
+        )
+
     return errors
 
 def validate_sort(sort):

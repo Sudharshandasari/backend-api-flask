@@ -9,7 +9,8 @@ from services.task_service import (
     search_tasks,
     filter_tasks,
     sorting_tasks,
-    get_tasks
+    get_tasks,
+    PaginationError
 )
 
 from validations.task_validation import validate_task
@@ -96,9 +97,35 @@ def get_paged_tasks():
     search = request.args.get("search")
     status_filter = request.args.get("status_filter")
     sort = request.args.get("sort")
-    page = request.args.get("page", 1, type=int)
-    limit = request.args.get("limit", 10, type=int)
-    
+    # page = request.args.get("page", 1, type=int)
+    # limit = request.args.get("limit", 10, type=int)
+
+    raw_page = request.args.get("page")
+    raw_limit = request.args.get("limit")
+
+    if raw_page is None:
+        page = 1
+    else:
+        try:
+            page = int(raw_page)
+        except ValueError:
+            return error_response("Invalid page"), 400
+        if page < 1:
+            return error_response("page must be greater than or equal to 1"), 400
+
+    if raw_limit is None:
+        limit = 10
+
+    else:
+        try:
+            limit = int(raw_limit)
+        except ValueError:
+            return error_response("Invalid limit value"), 400
+        if limit < 1:
+            return error_response("limit must be greater than or equal to 1"), 400
+        if limit > 100:
+            return error_response("limit must be less than or equal to 100"), 400
+
     if sort:
         errors = validate_sort(sort)
         if errors:
@@ -121,14 +148,18 @@ def get_paged_tasks():
     errors = validate_pagination(page, limit)
     if errors:
         return error_response(errors), 400
+
+    try:
+        tasks = get_tasks(
+            search=search,
+            status_filter=status_filter,
+            sort=sort,
+            page=page,
+            limit=limit
+        )
+    except PaginationError as e:
+        return error_response(str(e)), 400
     
-    tasks = get_tasks(
-        search=search,
-        status_filter=status_filter,
-        sort=sort,
-        page=page,
-        limit=limit
-    )
     return success_response(tasks)
 
 
